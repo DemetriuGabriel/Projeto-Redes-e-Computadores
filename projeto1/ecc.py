@@ -1,93 +1,79 @@
-from Crypto.PublicKey import ECC
-from Crypto.Hash import SHA512
-from Crypto.Protocol.KDF import HKDF
-#from Crypto.Cipher import DES
-#from Crypto.Util.Padding import pad, unpad
-from pyDes import des, ECB, PAD_PKCS5
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives import padding
+from cryptography.hazmat.primitives.ciphers.algorithms import TripleDES
+from cryptography.hazmat.primitives import serialization, hashes
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF
+from cryptography.hazmat.primitives.ciphers import Cipher, modes
 
-# Cripgrafa o pacote com DES (simetrico)
-# Assinatura digital
-# Pega o HASH do pacote criptografado
-# Criptografa o HASH com ECC
-
+# generate ecc key pairs
 def generate_ecc_keys():
-    # Criar a chave privada ( Descriptografa )
-    key = ECC.generate(curve='p192')
-
-    public_key = key.public_key().export_key(format='DER') #converter para formato hex ou bytes
-    private_key = key.export_key(format='DER') #converter para formato hex ou bytes
-
-    #falta ecrypt e decrypt da chave publica e privadaHKD
+    private_key = ec.generate_private_key(ec.SECP192R1())
+    public_key = private_key.public_key()
 
     return private_key, public_key
 
-def encrypt_msg_DES(data: bytes, key_des: bytes, ecc_public_key):
-    symetric_key = HKDF(ecc_public_key, 8, key_des, hashmod=SHA512)
+#transform ecc key pairs to format pem in bytes
+# encrypt message with ECC public key
+def transform_ecc_keys_bytes(private_key: bytes, public_key: bytes):
+    pem_private_key = private_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption()
+    )
 
-    cipher = des(symetric_key, ECB, pad=None, padmode=PAD_PKCS5)
-    return cipher.encrypt(data)
+    pem_public_key = public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo
+    )
 
-def decrypt_msg_DES(data: bytes, key_des: bytes, ecc_private_key):
-    symetric_key = HKDF(ecc_private_key, 8, key_des, hashmod=SHA512)
+    return pem_private_key, pem_public_key
 
-    cipher = des(symetric_key, ECB, pad=None, padmode=PAD_PKCS5)
-    return cipher.decrypt(data)
+# generate symmetric_key
+def generate_symmetric_key(private_key:bytes, public_key: bytes):
+    shared_key = private_key.exchange(ec.ECDH(), public_key)
 
-"""
-# atualizar código
+    return shared_key
 
-def encrypt_msg_ECC(data: bytes, chave_publica):
-    return chave_publica.encrypt(data, None)
+def generate_derived_key_hkdf(shared_key: bytes):
+    derived_key = HKDF(hashes.SHA512(), length=24, salt=None, info=b'encryption key').derive(shared_key)
 
-def decrypt_msg_ECC(data: bytes, chave_privada):
-    return chave_privada.decrypt(data, None)
+    return derived_key
 
-def get_hash_sha512(data):
-    h = SHA512.new(data)
-    return h.digest()
+# encrypt message with derived key
+def encrypt_msg(data: bytes, derived_key: bytes):
+    cipher = Cipher(TripleDES(derived_key), modes.CBC(b'\x00' * 8))
+    encryptor = cipher.encryptor()
+    padder = padding.PKCS7(64).padder()
+    padded_msg = padder.update(data) + padder.finalize()
+    encrypted_msg = encryptor.update(padded_msg) + encryptor.finalize()
 
-#código desatualizado ^ ^
-#                     | |
-"""
+    return encrypted_msg, cipher
+
+def decrypted_cipher_msg(cipher, encrypted_msg: bytes):
+    decryptor = cipher.decryptor()
+    unpadder = padding.PKCS7(64).unpadder()
+    padded_decrypted_msg = decryptor.update(encrypted_msg) + decryptor.finalize()
+    decrypted_msg = unpadder.update(padded_decrypted_msg) + unpadder.finalize()
+
+    return decrypted_msg
 
 if __name__ == "__main__":
-    key_des_test = b'chavinha'
-    ecc_private_key, ecc_public_key = generate_ecc_keys()
+    msg = input('Write your message: ').encode()
+    print(msg)
+    private_key, public_key = generate_ecc_keys()
 
-    data = b"Ola mundo"
+    pem_private_key, pem_public_key = transform_ecc_keys_bytes(private_key, public_key)
+    print(f'pem private key: {pem_private_key}\n pem public key: {pem_public_key}')
 
-    msg_cryptografada = encrypt_msg_DES(
-        data,
-        key_des_test,
-        ecc_public_key
-    )
-    print("data cryptografada DES\n", msg_cryptografada)
+    symmetric_key = generate_symmetric_key(private_key, public_key)
+    derived_key = generate_derived_key_hkdf(symmetric_key)
+    print(f' symmetric key: {symmetric_key}\n derived key: {derived_key}')
 
-    #CHAVE_DES_CRYPTOGRAFADA = encrypt_msg_DES(chave_des_teste, chave_ecc_publica)
+    encrypted_msg, cipher = encrypt_msg(msg, derived_key)
+    print(f'encrypt msg: {encrypted_msg}')
 
-    msg_descryptografada = decrypt_msg_DES(
-        msg_cryptografada,
-        key_des_test,
-        ecc_private_key
-    )
-    print("data descryptografada DES\n", msg_descryptografada.decode())
-
-    """
-    print("Chave cryptografada DES\n", CHAVE_DES_CRYPTOGRAFADA)
-
-    CHAVE_DES_DESCRYPTOGRAFADA = decrypt_msg_DES(CHAVE_DES_CRYPTOGRAFADA, chave_ecc_privada)
-    print("Chave descryptografada DES\n", CHAVE_DES_DESCRYPTOGRAFADA)
-
-
-    msg_descryptografada = decrypt_msg_DES(
-        msg_cryptografada,
-        chave=chave_des_teste
-    )
-
-    print("data Descryptografada")
-    print(msg_descryptografada.decode())"""
-
-
+    decrypted_msg = decrypted_cipher_msg(cipher, encrypted_msg).decode()
+    print(f'Decrypted MSG: {decrypted_msg}')
 
 """
 PACOTE
