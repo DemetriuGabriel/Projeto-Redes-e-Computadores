@@ -1,4 +1,5 @@
-from cryptography.hazmat.primitives.asymmetric import ec, utils
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers.algorithms import TripleDES
 from cryptography.hazmat.primitives import serialization, hashes
@@ -27,6 +28,10 @@ def transform_ecc_keys_bytes(private_key: bytes, public_key: bytes):
 
     return private_key_bytes, public_key_bytes
 
+# transform public key bytes to ecc object
+def load_ecc_public_key_bytes(public_key: bytes):
+    return serialization.load_pem_public_key(public_key)
+
 # generate symmetric_key
 # encrypt message with ECC public key
 def generate_shared_key(private_key:bytes, public_key: bytes):
@@ -40,9 +45,12 @@ def generate_symmetric_key_hkdf(shared_key: bytes):
 
     return symmetric_key
 
+def generate_cipher_from_symmetric_key(symmetric_key: bytes):
+    return Cipher(TripleDES(symmetric_key), modes.CBC(b'\x00' * 8))
+
 # encrypt message with symmetric key
 def encrypt_msg(data: bytes, symmetric_key: bytes):
-    cipher = Cipher(TripleDES(symmetric_key), modes.CBC(b'\x00' * 8))
+    cipher = generate_cipher_from_symmetric_key(symmetric_key)
     encryptor = cipher.encryptor()
     padder = padding.PKCS7(64).padder()
     padded_msg = padder.update(data) + padder.finalize()
@@ -57,12 +65,12 @@ def signature(encrypted_msg:bytes, private_key: bytes):
     return signature
 
 #verify signature using signature and public key
-def verify_signature(encrypted_msg: bytes, signature, public_key=bytes):
+def verify_signature(encrypted_msg: bytes, signature, public_key: bytes):
     try:
         public_key.verify(signature, encrypted_msg, ec.ECDSA(hashes.SHA512()))
-        print('Valid Signature')
-    except utils.InvalidSignature:
-        print('Invalid Signature')
+        return True
+    except InvalidSignature:
+        return False
 
 def decrypted_cipher_msg(cipher, encrypted_msg: bytes):
     decryptor = cipher.decryptor()
@@ -92,8 +100,11 @@ if __name__ == "__main__":
 
     verify_signature = verify_signature(encrypted_msg, signature_msg, public_key)
 
-    decrypted_msg = decrypted_cipher_msg(cipher, encrypted_msg).decode()
-    print(f'Decrypted MSG: {decrypted_msg}')
+    if verify_signature:
+        decrypted_msg = decrypted_cipher_msg(cipher, encrypted_msg).decode()
+        print(f'Decrypted MSG: {decrypted_msg}')
+    else:
+        print('Invalid Signature')
 
 """
 PACOTE
