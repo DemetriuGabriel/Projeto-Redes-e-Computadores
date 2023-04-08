@@ -64,6 +64,17 @@ def processador_solicitacao(socket_client, client_adr):
     arquivo_binario = False
     if extensao in tipo_arquivo_binario:
         arquivo_binario = True
+    if extensao =="admin":
+        print(f'O cliente não tem acesso')
+        header_403 = 'HTTP/1.1 403 Forbidden\r\n\r\n'
+        arquivo_403 = 'erro403.html'
+        file_403 = open(arquivo_403, 'r',encoding='utf-8' )
+        conteudo_403 = file_403.read()
+        resposta_403 = header_403 + conteudo_403
+        socket_client.sendall(resposta_403.encode('utf-8'))
+        socket_client.close
+        return False
+
 
     #a partir daqui temos o arquivo que foi solicitado pelo browser, precisamos abri-lo
     try:    
