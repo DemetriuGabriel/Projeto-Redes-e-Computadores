@@ -32,7 +32,7 @@ def processador_solicitacao(socket_client, client_adr):
     if metodo != 'GET':
         print(f'A versão do http não é suportada')
         header_400 = 'HTTP/1.1 400 Bad Request\r\n\r\n'
-        arquivo_400 = 'erro400.html'
+        arquivo_400 = 'erros/erro400.html'
         file_400 = open(arquivo_400, 'r',encoding='utf-8' )
         conteudo_400 = file_400.read()
         resposta_400 = header_400 + conteudo_400
@@ -45,7 +45,7 @@ def processador_solicitacao(socket_client, client_adr):
     if versao_http != 'HTTP/1.1':   
         print(f'A versão do http não é suportada')
         header_505 = 'HTTP/1.1 505 HTTP Version Not Supported\r\n\r\n'
-        arquivo_505 = 'erro505.html'
+        arquivo_505 = 'erros/erro505.html'
         file_505 = open(arquivo_505, 'r',encoding='utf-8' )
         conteudo_505 = file_505.read()
         resposta_505 = header_505 + conteudo_505
@@ -60,14 +60,10 @@ def processador_solicitacao(socket_client, client_adr):
 
     #deve ser implementado o erro 400 aqui através da verificação das listas de formatação de arquivo, caso o arquivo solicitado não esteja em nenhuma das duas o erro 400 deve ser retornado com sua pagina html propria
     print(extensao)
-
-    arquivo_binario = False
-    if extensao in tipo_arquivo_binario:
-        arquivo_binario = True
     if extensao =="admin":
         print(f'O cliente não tem acesso')
         header_403 = 'HTTP/1.1 403 Forbidden\r\n\r\n'
-        arquivo_403 = 'erro403.html'
+        arquivo_403 = 'erros/erro403.html'
         file_403 = open(arquivo_403, 'r',encoding='utf-8' )
         conteudo_403 = file_403.read()
         resposta_403 = header_403 + conteudo_403
@@ -75,6 +71,9 @@ def processador_solicitacao(socket_client, client_adr):
         socket_client.close
         return False
 
+    arquivo_binario = False
+    if extensao in tipo_arquivo_binario:
+        arquivo_binario = True
 
     #a partir daqui temos o arquivo que foi solicitado pelo browser, precisamos abri-lo
     try:    
@@ -86,7 +85,7 @@ def processador_solicitacao(socket_client, client_adr):
     except FileNotFoundError:
         print(f'arquivo não existe {arquivo_solicitado}')
         header_404 = 'HTTP/1.1 404 File not found\r\n\r\n'
-        arquivo_404 = 'erro404.html'
+        arquivo_404 = 'erros/erro404.html'
         file_404 = open(arquivo_404, 'r',encoding='utf-8' )
         conteudo_404 = file_404.read()
         resposta_404 = header_404 + conteudo_404
