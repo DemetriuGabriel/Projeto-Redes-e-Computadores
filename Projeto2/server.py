@@ -1,141 +1,170 @@
 import socket
 from threading import Thread
+import pathlib
+import logging
 
+logging.basicConfig(level=logging.DEBUG)
 
-
-#variaveis
+# variáveis
 server_address = 'localhost'
 server_port = 8000
-tipo_arquivo_binario = ['png', 'jpeg', 'bmp']
-tipo_arquivo_text = ['html', 'css', 'js']
+lista_arquivos_binario = ['png', 'jpeg', 'bmp']
+tipo_arquivo_text = ['html', 'htm', 'css', 'js', 'txt', 'py', 'pdf', 'doc']
+
+headers_code = {
+    200: 'HTTP/1.1 200 OK\r\n\r\n'.encode('utf8'),
+}
+
+erros = {
+    400: {
+        'header': 'HTTP/1.1 400 Bad Request\r\n\r\n',
+        'html': pathlib.Path('erros/erro400.html')
+    },
+    403: {
+        'header': 'HTTP/1.1 403 Forbidden\r\n\r\n',
+        'html': pathlib.Path('erros/erro403.html')
+    },
+    505: {
+        'header': 'HTTP/1.1 505 HTTP Version Not Supported\r\n\r\n',
+        'html': pathlib.Path('erros/erro505.html')
+    },
+    404: {
+        'header': 'HTTP/1.1 404 File not found\r\n\r\n',
+        'html': pathlib.Path('erros/erro404.html')
+    },
+}
+
+with open(pathlib.Path('navegacao.html'), 'r') as navegation_file:
+    navegacao_html = navegation_file.read()
 
 
-#definição da função que irá processar as solicitações do socket para utilizar o thread
-def processador_solicitacao(socket_client, client_adr):
-    print(f'cliente foi conectado com sucesso. {client_adr[0]}:{client_adr[1]}')
+def criar_html_pasta(pasta: pathlib.Path) -> bytes:
+    """
+    retorna uma pagina de navegação da pasta
+    """
 
-    #aqui eu recebo o header inteiro da requisição do client
-    dado_recebido = socket_client.recv(1024)
-    dado_recebido = dado_recebido.decode()
+    strings_arquivos = ''
+    for item in pasta.iterdir():
+        path_arquivo = item.relative_to(*item.parts[:1]) # retira a primeira pasta do caminho
+        strings_arquivos += f'<a href="/{path_arquivo}"> <p> {item.name} </p></a>\n'
 
-    #dividi o header em um array, cada linha ta em um indice, por enquanto usarei pra descobrir qual pagina o cliente quer
-    headers = dado_recebido.split('\r\n')
+    html_string = navegacao_html.replace("{strings_arquivos}", strings_arquivos)
+
+    return html_string.encode('utf8')
+
+
+def create_html_error(numero_error):
+    error = erros[numero_error]
+
+    with open(error['html'], encoding='utf8') as file:
+        html = file.read()
+
+    return (error['header']+html).encode('utf8')
+
+# definição da função que irá processar as solicitações do socket para utilizar o thread
+
+
+def processar_pagina(socket_client, client_adr):
+    logging.info(
+        f'Cliente foi conectado com sucesso. {client_adr[0]}:{client_adr[1]}')    
+    try:
+        dados_recebido = socket_client.recv(1024).decode()
+        
+        if dados_recebido != "":
+            processar_solicitacao(socket_client, dados_recebido)
+        socket_client.close()
+    except Exception as e:
+        logging.info(dados_recebido)
+        logging.exception(e)
+
+
+
+def processar_solicitacao(socket_client, dados):
+    diretorio_solicitado = pathlib.Path('arquivos')
+
+    headers = dados.split('\r\n')
     header_get = headers[0]
     versao_http = header_get.split(' ')[2]
     metodo = header_get.split(' ')[0]
     arquivo_solicitado = header_get.split(' ')[1][1:]
-    print(versao_http)
-    print(metodo)
 
 
-#tratamento de erros
+    diretorio_solicitado /= arquivo_solicitado
+
+    logging.info(f"Arquivo solicitado: {arquivo_solicitado}")
+    logging.info(f"Diretorio solicitado: {diretorio_solicitado}")
+
+    # tratamento de erros
+
     if metodo != 'GET':
-        print(f'A versão do http não é suportada')
-        header_400 = 'HTTP/1.1 400 Bad Request\r\n\r\n'
-        arquivo_400 = 'erros/erro400.html'
-        file_400 = open(arquivo_400, 'r',encoding='utf-8' )
-        conteudo_400 = file_400.read()
-        resposta_400 = header_400 + conteudo_400
-        socket_client.sendall(resposta_400.encode('utf-8'))
-        socket_client.close
-        return False
-        
+        logging.error(f'A versão do http não é suportada')
+        socket_client.sendall(create_html_error(400))
+        return
+
+    if versao_http != 'HTTP/1.1':
+        logging.error(f'A versão do http não é suportada')
+        socket_client.sendall(create_html_error(505))
+        return
+
+    if arquivo_solicitado == "admin":
+        logging.error(f'O cliente não tem acesso')
+        socket_client.sendall(create_html_error(403))
+        return
+
+    if not diretorio_solicitado.exists():  # Arquivo/Pasta não existe
+        logging.error(f'Arquivo não existe {diretorio_solicitado}')
+        socket_client.sendall(create_html_error(404))
+        return
+
     
-#tratamento erro 505
-    if versao_http != 'HTTP/1.1':   
-        print(f'A versão do http não é suportada')
-        header_505 = 'HTTP/1.1 505 HTTP Version Not Supported\r\n\r\n'
-        arquivo_505 = 'erros/erro505.html'
-        file_505 = open(arquivo_505, 'r',encoding='utf-8' )
-        conteudo_505 = file_505.read()
-        resposta_505 = header_505 + conteudo_505
-        socket_client.sendall(resposta_505.encode('utf-8'))
-        socket_client.close
-        return False
-        
-
-    #para tipos diferentes de arquivos(ex: fotos) precisamos identificalos e trata-los de formas diferentes
-    extensao = arquivo_solicitado.split('.')[-1]
-    #print só pra saber o tipo de extensão se der problema
-
-    #deve ser implementado o erro 400 aqui através da verificação das listas de formatação de arquivo, caso o arquivo solicitado não esteja em nenhuma das duas o erro 400 deve ser retornado com sua pagina html propria
-    print(extensao)
-    if extensao =="admin":
-        print(f'O cliente não tem acesso')
-        header_403 = 'HTTP/1.1 403 Forbidden\r\n\r\n'
-        arquivo_403 = 'erros/erro403.html'
-        file_403 = open(arquivo_403, 'r',encoding='utf-8' )
-        conteudo_403 = file_403.read()
-        resposta_403 = header_403 + conteudo_403
-        socket_client.sendall(resposta_403.encode('utf-8'))
-        socket_client.close
-        return False
-
-    arquivo_binario = False
-    if extensao in tipo_arquivo_binario:
-        arquivo_binario = True
-
-    #a partir daqui temos o arquivo que foi solicitado pelo browser, precisamos abri-lo
-    try:    
-        if arquivo_binario:
-            file = open(arquivo_solicitado, 'rb')
+    if diretorio_solicitado.is_dir(): # entra aqui se for uma pasta
+        if pathlib.Path.is_file(diretorio_solicitado/'index.html'):
+            diretorio_solicitado /= 'index.html'
+        elif pathlib.Path.is_file(diretorio_solicitado/'index.htm'):
+            diretorio_solicitado /= 'index.htm'
         else:
-            file = open(arquivo_solicitado, 'r', encoding='utf-8')
+            conteudo_arquivo = criar_html_pasta(
+                pasta=diretorio_solicitado
+            )
+            resposta_final = headers_code[200] + conteudo_arquivo
+            socket_client.sendall(resposta_final)
+            return
+
+    # Acessando um arquivo...
+
+    with open(diretorio_solicitado, 'rb') as file:
         conteudo_arquivo = file.read()
-    except FileNotFoundError:
-        print(f'arquivo não existe {arquivo_solicitado}')
-        header_404 = 'HTTP/1.1 404 File not found\r\n\r\n'
-        arquivo_404 = 'erros/erro404.html'
-        file_404 = open(arquivo_404, 'r',encoding='utf-8' )
-        conteudo_404 = file_404.read()
-        resposta_404 = header_404 + conteudo_404
-        socket_client.sendall(resposta_404.encode('utf-8'))
-        socket_client.close
-        return False
-        #será feito tratamento de erro, nesse caso 404
 
+    # Checa se é binario
+    # try: 
+    #     conteudo_arquivo.decode('utf8').encode('utf8')
+    # except UnicodeDecodeError:
+    #     pass
 
-
-
-    #enviar mensagem ao browser
-    header_resposta = f'HTTP/1.1 200 OK\r\n\r\n'
-    corpo_resposta = conteudo_arquivo
-
-    #caso o arquivo seja binario(imagem) precisamos trata-lo diferente, para que nossa mensagem esteja toda da mesma forma
-    if  arquivo_binario:
-        resposta_final = bytes(header_resposta, 'utf-8') + corpo_resposta
-
-        #envio para o cliente da resposta, não precisa do encode já que tudo está em bytes
-        socket_client.sendall(resposta_final)
-
-    #para arquivos de texto podemos envia-lo normalmente
-
-    else: 
-        resposta_final = header_resposta + corpo_resposta
-        #envio para o cliente da resposta
-        socket_client.sendall(resposta_final.encode('utf-8'))
-   
-
-    #fechamento da conexão
-    socket_client.close
-
+    resposta_final = headers_code[200] + conteudo_arquivo
+    socket_client.sendall(resposta_final)
 
 
 # socket do server foi criado
 socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-#local do servidor
+# local do servidor
 socket_servidor.bind((server_address, server_port))
-#servidor esperando conexões
+
+# servidor esperando conexões
 socket_servidor.listen()
-print(f'server ouvindo em {server_address} e {server_port}, esperando conexões')
+logging.info(
+    f'Server ouvindo em {server_address} e {server_port}, esperando conexões')
 
-#para que não tenha que reiniciar o server sempre colocamos o while true
+# para que não tenha que reiniciar o server sempre colocamos o while true
 while True:
-    #conectado com o cliente recebe seu ip e porta
-    socket_client, client_adr = socket_servidor.accept()
-    #utilização de thread
-    Thread(target=processador_solicitacao, args=(socket_client, client_adr)).start()
-
-    
-socket_servidor.close
+    try:
+        # conectado com o cliente recebe seu ip e porta
+        socket_client, client_adr = socket_servidor.accept()
+        # utilização de thread
+        Thread(target=processar_pagina, args=(
+            socket_client, client_adr)).start()
+    except Exception as e:
+        socket_servidor.close()
+        raise (e)
+        break
