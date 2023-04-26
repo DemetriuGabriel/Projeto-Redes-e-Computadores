@@ -37,7 +37,6 @@ erros = {
 with open(pathlib.Path('navegacao.html'), 'r') as navegation_file:
     navegacao_html = navegation_file.read()
 
-
 def criar_html_pasta(pasta: pathlib.Path) -> bytes:
     """
     retorna uma pagina de navegação da pasta
@@ -52,7 +51,6 @@ def criar_html_pasta(pasta: pathlib.Path) -> bytes:
 
     return html_string.encode('utf8')
 
-
 def create_html_error(numero_error):
     error = erros[numero_error]
 
@@ -62,7 +60,6 @@ def create_html_error(numero_error):
     return (error['header']+html).encode('utf8')
 
 # Definição da função que irá processar as solicitações do socket para utilizar o thread
-
 
 def processar_pagina(socket_client, client_adr):
     logging.info(
@@ -77,8 +74,6 @@ def processar_pagina(socket_client, client_adr):
         logging.info(dados_recebido)
         logging.exception(e)
 
-
-
 def processar_solicitacao(socket_client, dados):
     diretorio_solicitado = pathlib.Path('arquivos')
 
@@ -87,7 +82,6 @@ def processar_solicitacao(socket_client, dados):
     versao_http = header_get.split(' ')[2]
     metodo = header_get.split(' ')[0]
     arquivo_solicitado = header_get.split(' ')[1][1:]
-
 
     diretorio_solicitado /= arquivo_solicitado
 
@@ -115,7 +109,6 @@ def processar_solicitacao(socket_client, dados):
         logging.error(f'Arquivo não existe {diretorio_solicitado}')
         socket_client.sendall(create_html_error(404))
         return
-
     
     if diretorio_solicitado.is_dir(): # Entra aqui se for uma pasta
         if pathlib.Path.is_file(diretorio_solicitado/'index.html'):
@@ -135,15 +128,8 @@ def processar_solicitacao(socket_client, dados):
     with open(diretorio_solicitado, 'rb') as file:
         conteudo_arquivo = file.read()
 
-    # Checa se é binario
-    # try: 
-    #     conteudo_arquivo.decode('utf8').encode('utf8')
-    # except UnicodeDecodeError:
-    #     pass
-
     resposta_final = headers_code[200] + conteudo_arquivo
     socket_client.sendall(resposta_final)
-
 
 # Socket do server foi criado
 socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -167,4 +153,3 @@ while True:
     except Exception as e:
         socket_servidor.close()
         raise (e)
-        break
