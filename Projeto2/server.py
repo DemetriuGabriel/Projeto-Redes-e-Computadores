@@ -97,7 +97,7 @@ def processar_solicitacao(socket_client, dados):
     # tratamento de erros
 
     if metodo != 'GET':
-        logging.error(f'A versão do http não é suportada')
+        logging.error(f'Esse método não é suportado')
         socket_client.sendall(create_html_error(400))
         return
 
