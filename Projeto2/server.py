@@ -2,6 +2,7 @@ import socket
 from threading import Thread
 import pathlib
 import logging
+import datetime
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -45,8 +46,15 @@ def criar_html_pasta(pasta: pathlib.Path) -> bytes:
     strings_arquivos = ''
     for item in pasta.iterdir():
         path_arquivo = item.relative_to(*item.parts[:1]) # Retira a primeira pasta do caminho
-        strings_arquivos += f'<a href="/{path_arquivo}"> <p> {item.name} </p></a>\n'
 
+        timestamp_str = datetime.datetime.fromtimestamp(item.stat().st_mtime).strftime('%Y-%m-%d %H:%M')
+        
+        if item.is_file():
+            strings_arquivos += f'<tr><td><a href="/{path_arquivo}"><span class="material-symbols-outlined">draft</span>{item.name}</a></td><td>{timestamp_str}</td><td>{item.stat().st_size}</td><tr>\n'
+
+        elif item.is_dir():
+            strings_arquivos += f'<tr><td><a href="/{path_arquivo}"><span class="material-symbols-outlined">folder</span>{item.name}</a></td><td>{timestamp_str}</td><td>{item.stat().st_size}</td><tr>\n'
+    
     html_string = navegacao_html.replace("{strings_arquivos}", strings_arquivos)
 
     return html_string.encode('utf8')

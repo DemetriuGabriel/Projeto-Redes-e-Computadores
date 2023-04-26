@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
-    <body>
-        <header>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+</head>
+<body>
+    <header>
+        <h1>Index of /~Arquivos do Servidor</h1>
+    </header>
+    <main>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Last modified</th>
+                <th>Size</th>
+            </tr>
+            <tr>
+                {strings_arquivos}
+            </tr>
+        </table>
+    </main>
+    <footer>
 
-        </header>
-        <main>
-            <h1>Arquivos do Servidor</h1>
-            {strings_arquivos}
-        </main>
-    </body>
+    </footer>
+</body>
 </html>
+
+<!-- 
+1 - Mudar fonte
+2 - Aprender a colocar a data do arquivo
+3 - Colocar o tamanho do arquivo
+
+ -->
