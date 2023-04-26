@@ -5,7 +5,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-# variáveis
+# Variáveis
 server_address = 'localhost'
 server_port = 8000
 lista_arquivos_binario = ['png', 'jpeg', 'bmp']
@@ -45,7 +45,7 @@ def criar_html_pasta(pasta: pathlib.Path) -> bytes:
 
     strings_arquivos = ''
     for item in pasta.iterdir():
-        path_arquivo = item.relative_to(*item.parts[:1]) # retira a primeira pasta do caminho
+        path_arquivo = item.relative_to(*item.parts[:1]) # Retira a primeira pasta do caminho
         strings_arquivos += f'<a href="/{path_arquivo}"> <p> {item.name} </p></a>\n'
 
     html_string = navegacao_html.replace("{strings_arquivos}", strings_arquivos)
@@ -61,7 +61,7 @@ def create_html_error(numero_error):
 
     return (error['header']+html).encode('utf8')
 
-# definição da função que irá processar as solicitações do socket para utilizar o thread
+# Definição da função que irá processar as solicitações do socket para utilizar o thread
 
 
 def processar_pagina(socket_client, client_adr):
@@ -94,7 +94,7 @@ def processar_solicitacao(socket_client, dados):
     logging.info(f"Arquivo solicitado: {arquivo_solicitado}")
     logging.info(f"Diretorio solicitado: {diretorio_solicitado}")
 
-    # tratamento de erros
+    # Tratamento de erros
 
     if metodo != 'GET':
         logging.error(f'Esse método não é suportado')
@@ -117,7 +117,7 @@ def processar_solicitacao(socket_client, dados):
         return
 
     
-    if diretorio_solicitado.is_dir(): # entra aqui se for uma pasta
+    if diretorio_solicitado.is_dir(): # Entra aqui se for uma pasta
         if pathlib.Path.is_file(diretorio_solicitado/'index.html'):
             diretorio_solicitado /= 'index.html'
         elif pathlib.Path.is_file(diretorio_solicitado/'index.htm'):
@@ -145,23 +145,23 @@ def processar_solicitacao(socket_client, dados):
     socket_client.sendall(resposta_final)
 
 
-# socket do server foi criado
+# Socket do server foi criado
 socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# local do servidor
+# Local do servidor
 socket_servidor.bind((server_address, server_port))
 
-# servidor esperando conexões
+# Servidor esperando conexões
 socket_servidor.listen()
 logging.info(
     f'Server ouvindo em {server_address} e {server_port}, esperando conexões')
 
-# para que não tenha que reiniciar o server sempre colocamos o while true
+# Para que não tenha que reiniciar o server sempre colocamos o while true
 while True:
     try:
-        # conectado com o cliente recebe seu ip e porta
+        # Conectado com o cliente recebe seu ip e porta
         socket_client, client_adr = socket_servidor.accept()
-        # utilização de thread
+        # Utilização de thread
         Thread(target=processar_pagina, args=(
             socket_client, client_adr)).start()
     except Exception as e:
