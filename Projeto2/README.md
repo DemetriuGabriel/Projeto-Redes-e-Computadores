@@ -1,1 +1,3 @@
 # :satellite: Projeto 2: Servidor Web (implemente o protocolo padronizado HTTP/1.1) - TCP
+
+### Projeto com objetivo de desenvolver um servidor web capaz de implementar o protocolo HTTP/1.1 e transmitir diferentes tipos de arquivos, incluindo arquivos de tamanho grande. O servidor deve ser capaz de manipular tanto arquivos de texto quanto arquivos binários e deve retornar respostas com os códigos de resposta padrão do HTTP, bem como um arquivo HTML personalizado em caso de erros. O uso de sockets TCP é obrigatório e não é permitido o uso de frameworks ou bibliotecas que implementem o HTTP ou APIs que dispensam a implementação de um servidor HTTP.
