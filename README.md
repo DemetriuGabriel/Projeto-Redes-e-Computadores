@@ -8,6 +8,6 @@
  
 #### O projeto foi feito com o objetivo de aprimorar nosso desenvolvimento com sockets através dos conhecimentos que foram adquiridos durante a disciplina de Redes e Computadores do [CIn](https://portal.cin.ufpe.br/) UFPE.
 
-#### Projeto da disciplina Redes e Computadores, ministrada por: Kelvin Dias, Katarine Barbora e Anderson Queiroz
+#### Projeto da disciplina Redes e Computadores, ministrada por: Kelvin Dias, Maria Katarine Barbora e Anderson Queiroz
 
 
