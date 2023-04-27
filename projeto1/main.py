@@ -1,5 +1,6 @@
 from threading import Thread
 import logging
+import time
 from p2p import User
 
 if __name__ == "__main__":
@@ -37,4 +38,5 @@ if __name__ == "__main__":
             for message in mensagens:
                 user1.send_message_to_user(message, user2.name)
 
-    logging.info("Programa finalizado")
+    time.sleep(0.03)
+    logging.info("Termino do envio de mensagens")
