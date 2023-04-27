@@ -1,4 +1,4 @@
-# :satellite: Projeto 2: Servidor Web 
+# :file_folder: Projeto 2: Servidor Web 
 
 ### Projeto contém um servidor web capaz de implementar o protocolo HTTP/1.1 e transmitir diferentes tipos de arquivos, incluindo arquivos de tamanho grande. 
 ### O servidor é capaz de manipular tanto arquivos de texto quanto arquivos binários e retorna respostas com os códigos de resposta padrão do HTTP, bem como um arquivo HTML personalizado em caso de erros. 
