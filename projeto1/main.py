@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s %(levelname)s - %(message)s',
-                        handlers=[logging.FileHandler("log.log", mode='w'),
+                        handlers=[logging.FileHandler("log.log", mode='w', encoding='utf8'),
                                 stream_handler])
 
     for port in portas:
