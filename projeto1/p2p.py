@@ -42,7 +42,7 @@ class User:
             raise Exception("Assinatura invalida")
 
         pacote_descriptografado = pickle.loads(Criptografia.decrypted_cipher_msg(
-            user_data['user_cipher'], pacote_criptografado))
+            user_data['user_cipher'], pacote_criptografado, user_data['my_chave_simetrica']))
 
         end_time_descriptografia = time.time_ns()
 
