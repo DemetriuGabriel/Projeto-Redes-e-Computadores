@@ -2,6 +2,11 @@ body {
     background: #333333;
     color: rgb(255, 255, 255);
     margin-left: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+span {
+    font-family:'Roboto', sans-serif;
 }
 
 a, td {
@@ -14,17 +19,16 @@ span {
     color: #fa8128;
 }
 
-span:hover, td:hover, a:hover {
+span:hover, td:hover, a:hover, .row:hover {
     color: #229A00;
 }
 
-td:hover {
+.row:hover {
     background-color: #201f1f;
 }
 
-
 table {
-    width: 70%;
+    width: 100%;
 }
 
 table, tr {
@@ -36,7 +40,12 @@ td {
     padding: 4px 4px 4px 7px;
 }
 
-th {
+#head {
+    text-align: left;
+    padding: 10px 10px;
+}
+
+.name {
     text-align: left;
     padding: 10px 10px 10px 43px;
 }

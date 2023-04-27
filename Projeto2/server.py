@@ -44,16 +44,20 @@ def criar_html_pasta(pasta: pathlib.Path) -> bytes:
     """
 
     strings_arquivos = ''
+    pasta_parent = pasta.parent
+    if not str(pasta_parent) == '.':
+        strings_arquivos += f'<tr class="row"><td><a href="/{pasta_parent.relative_to(*pasta_parent.parts[:1])}"><span class="material-symbols-outlined">undo</span>Parent Directory</a></td><td></td><td></td><tr>\n'
+
     for item in pasta.iterdir():
         path_arquivo = item.relative_to(*item.parts[:1]) # Retira a primeira pasta do caminho
 
         timestamp_str = datetime.datetime.fromtimestamp(item.stat().st_mtime).strftime('%Y-%m-%d %H:%M')
         
         if item.is_file():
-            strings_arquivos += f'<tr><td><a href="/{path_arquivo}"><span class="material-symbols-outlined">draft</span>{item.name}</a></td><td>{timestamp_str}</td><td>{item.stat().st_size}</td><tr>\n'
+            strings_arquivos += f'<tr class="row"><td><a href="/{path_arquivo}"><span class="material-symbols-outlined">draft</span>{item.name}</a></td><td>{timestamp_str}</td><td>{(item.stat().st_size/1000):.1f} KB</td><tr>\n'
 
         elif item.is_dir():
-            strings_arquivos += f'<tr><td><a href="/{path_arquivo}"><span class="material-symbols-outlined">folder</span>{item.name}</a></td><td>{timestamp_str}</td><td>{item.stat().st_size}</td><tr>\n'
+            strings_arquivos += f'<tr class="row"><td><a href="/{path_arquivo}"><span class="material-symbols-outlined">folder</span>{item.name}</a></td><td>{timestamp_str}</td><td>{(item.stat().st_size/1000)} KB</td><tr>\n'
     
     html_string = navegacao_html.replace("{strings_arquivos}", strings_arquivos)
 
@@ -89,7 +93,7 @@ def processar_solicitacao(socket_client, dados):
     header_get = headers[0]
     versao_http = header_get.split(' ')[2]
     metodo = header_get.split(' ')[0]
-    arquivo_solicitado = header_get.split(' ')[1][1:]
+    arquivo_solicitado = header_get.split(' ')[1][1:].replace('%20',' ')
 
     diretorio_solicitado /= arquivo_solicitado
 
