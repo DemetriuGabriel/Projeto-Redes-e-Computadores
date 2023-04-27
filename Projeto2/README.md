@@ -5,7 +5,7 @@
 ### Utilizamos o sockets TCP.
 
 
-## Para roodar o código é preciso ter o Python instalado no seu computador.
+## Para rodar o código é preciso ter o Python instalado e configurado no seu computador.
 #### Mais detalhes podem ser vistos no manual do usuário disponibilizado no relatório.
 
 
