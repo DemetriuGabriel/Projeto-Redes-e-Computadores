@@ -7,13 +7,7 @@ import time
 
 import criptografia as Criptografia
 
-
 PACKET_SIZE = 2048
-
-
-# Carregar arquivos de mensagens
-with open('mensagens.txt', 'r') as msgs_file:
-    mensagens = msgs_file.read().split('\n')
 
 
 class User:
@@ -21,7 +15,10 @@ class User:
         self.name = f'User_{random.randint(0, 10000)}'
         self.address = address
         self.port = port
-        self.socket = self.create_socket(address, port)
+
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.bind((self.address, self.port))
+
         self.connections_data = {}  # Guarda os dados de cada conexão
 
     def receive_message(self, user_socket, user_data):
@@ -34,7 +31,7 @@ class User:
         assinatura = payload['signature']
         pacote_criptografado = payload['data']
         send_timestamp = payload['timestamp']
-        
+
         logging.info(f"Tamanho do pacote: {len(payload_bytes)} bytes")
         logging.info(
             f"Tempo de transmissão: {received_timestamp-send_timestamp} nanosegundos")
@@ -58,12 +55,12 @@ class User:
         user_data = self.connections_data.get(user_name, None)
         if user_data == None:
             raise Exception("User not founded")
-        return self.send_message(message, user_data)
+        self.send_message(message, user_data)
 
     def send_message(self, message, user_data):
 
         pacote = {
-            'message': message,  # msg criptografada
+            'message': message,
         }
 
         start_time_criptografia = time.time_ns()
@@ -87,14 +84,7 @@ class User:
         pacote_bytes = pickle.dumps(payload)
 
         user_data['socket'].send(pacote_bytes)
-        time.sleep(0.01)
         logging.debug("Mensagem enviada e recebida")
-
-    def create_socket(self, address, port):
-        created_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        created_socket.bind((address, port))
-
-        return created_socket
 
     def listen_connections(self):
         self.socket.listen(3)
@@ -209,34 +199,3 @@ class User:
 
     def __repr__(self) -> str:
         return self.name
-
-if __name__ == "__main__":
-    default_address = 'localhost'
-    portas = [62876, 62875, 1236]
-    users = []
-
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s:%(levelname)s - %(message)s",
-                        datefmt="%H:%M:%S")
-
-    for port in portas:
-        user = User(address=default_address, port=port)
-        users.append(user)
-        Thread(target=user.listen_connections).start()
-
-    # Todo mundo se conectar
-    for i in range(len(users)-1):
-        user1 = users[i]
-        for j in range(i+1, len(users)):
-            user2 = users[j]
-            user1.connect(user2.address, user2.port)
-
-    # Enviar mensagens entre si
-    for i in range(len(users)):
-        user1 = users[i]
-
-        for j in range(len(users)):
-            if i == j:
-                continue
-            user2 = users[j]
-            for message in mensagens:
-                user1.send_message_to_user(message, user2.name)
