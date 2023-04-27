@@ -9,8 +9,6 @@ logging.basicConfig(level=logging.DEBUG)
 # Variáveis
 server_address = 'localhost'
 server_port = 8000
-lista_arquivos_binario = ['png', 'jpeg', 'bmp']
-tipo_arquivo_text = ['html', 'htm', 'css', 'js', 'txt', 'py', 'pdf', 'doc']
 
 headers_code = {
     200: 'HTTP/1.1 200 OK\r\n\r\n'.encode('utf8'),
