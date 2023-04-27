@@ -24,4 +24,4 @@
 #### 7. Executando o programa:
    
     
- ### :smile: Pronto, você já pode fazer a comunicação entre os usuráios com segurança.
+ ### :smile: Pronto, você já pode fazer a comunicação entre os usuários com segurança.
