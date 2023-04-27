@@ -5,15 +5,20 @@ from p2p import User
 
 if __name__ == "__main__":
     # Carregar arquivos de mensagens
-    with open('mensagens.txt', 'r') as msgs_file:
+    with open('mensagens.txt', 'r', encoding='utf8') as msgs_file:
         mensagens = msgs_file.read().split('\n')
 
     default_address = 'localhost'
-    portas = [62876, 62875, 1236]
+    portas = [62877, 62777, 1237]
     users = []
 
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s:%(levelname)s - %(message)s",
-                        datefmt="%H:%M:%S")
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(logging.INFO)
+
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s %(levelname)s - %(message)s',
+                        handlers=[logging.FileHandler("log.log", mode='w'),
+                                stream_handler])
 
     for port in portas:
         user = User(address=default_address, port=port)
@@ -37,6 +42,7 @@ if __name__ == "__main__":
             user2 = users[j]
             for message in mensagens:
                 user1.send_message_to_user(message, user2.name)
+                time.sleep(0.01)
 
     time.sleep(0.03)
-    logging.info("Termino do envio de mensagens")
+    logging.info("Todas mensagens enviadas!")

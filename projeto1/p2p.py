@@ -42,7 +42,7 @@ class User:
             raise Exception("Assinatura invalida")
 
         pacote_descriptografado = pickle.loads(Criptografia.decrypted_cipher_msg(
-            user_data['user_cipher'], pacote_criptografado, user_data['my_chave_simetrica']))
+            user_data['user_cipher'], pacote_criptografado))
 
         end_time_descriptografia = time.time_ns()
 
@@ -65,14 +65,14 @@ class User:
 
         start_time_criptografia = time.time_ns()
 
-        pacote_criptografado, cipher = Criptografia.encrypt_msg(
+        pacote_criptografado, _ = Criptografia.encrypt_msg(
             pickle.dumps(pacote), user_data['my_chave_simetrica'])
         assinatura = Criptografia.signature(
             pacote_criptografado, user_data['my_private_key'])
 
         end_time_criptografia = time.time_ns()
         logging.info(
-            f"Tempo tomado para encriptografar: {end_time_criptografia-start_time_criptografia} nanosegundos")
+            f"Tempo tomado para encriptografar: {end_time_criptografia-start_time_criptografia} nanosegundos ")
 
         payload = {
             'data': pacote_criptografado,
@@ -182,7 +182,7 @@ class User:
         while True:
             message = self.receive_message(user_socket, user_data)
             logging.info(
-                f"(({user_data['name']}) -> ({self.name})): {message}")
+                f"(({user_data['name']}) -> ({self.name})): {message['message']}")
 
     def connect(self, address, port):
         user_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

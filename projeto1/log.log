@@ -1,0 +1,184 @@
+2023-04-27 18:10:01,138 INFO - User_7710: Connected to User_3994
+2023-04-27 18:10:01,152 INFO - User_7710: Connected to User_5754
+2023-04-27 18:10:01,157 INFO - User_3994: Connected to User_5754
+2023-04-27 18:10:01,157 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,163 INFO - Tamanho do pacote: 166 bytes
+2023-04-27 18:10:01,163 INFO - Tempo de transmissão: 5505400 nanosegundos
+2023-04-27 18:10:01,163 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,163 INFO - ((User_7710) -> (User_3994)): Obra na BR-101
+2023-04-27 18:10:01,174 INFO - Tempo tomado para encriptografar: 1074700 nanosegundos 
+2023-04-27 18:10:01,174 INFO - Tamanho do pacote: 166 bytes
+2023-04-27 18:10:01,174 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,176 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,178 INFO - ((User_7710) -> (User_3994)): Obra na PE-015
+2023-04-27 18:10:01,186 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,187 INFO - Tamanho do pacote: 182 bytes
+2023-04-27 18:10:01,187 INFO - Tempo de transmissão: 1756900 nanosegundos
+2023-04-27 18:10:01,187 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,187 INFO - ((User_7710) -> (User_3994)): Acidente Avenida Cruz Cabugá
+2023-04-27 18:10:01,199 INFO - Tempo tomado para encriptografar: 1515000 nanosegundos 
+2023-04-27 18:10:01,199 INFO - Tamanho do pacote: 190 bytes
+2023-04-27 18:10:01,202 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,202 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,202 INFO - ((User_7710) -> (User_3994)): Trânsito Intenso na Avenida Boa viagem
+2023-04-27 18:10:01,212 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,215 INFO - Tamanho do pacote: 197 bytes
+2023-04-27 18:10:01,215 INFO - Tempo de transmissão: 2526200 nanosegundos
+2023-04-27 18:10:01,216 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,216 INFO - ((User_7710) -> (User_3994)): Trânsito Intenso na Governador Agamenon Magalhães
+2023-04-27 18:10:01,225 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,226 INFO - Tamanho do pacote: 174 bytes
+2023-04-27 18:10:01,226 INFO - Tempo de transmissão: 1721000 nanosegundos
+2023-04-27 18:10:01,226 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,226 INFO - ((User_7710) -> (User_3994)): Acidente Avenida Norte
+2023-04-27 18:10:01,237 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,237 INFO - Tamanho do pacote: 166 bytes
+2023-04-27 18:10:01,239 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,240 INFO - Tempo tomado para descriptografar: 1511100 nanosegundos
+2023-04-27 18:10:01,240 INFO - ((User_7710) -> (User_5754)): Obra na BR-101
+2023-04-27 18:10:01,249 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,251 INFO - Tamanho do pacote: 167 bytes
+2023-04-27 18:10:01,251 INFO - Tempo de transmissão: 2591300 nanosegundos
+2023-04-27 18:10:01,251 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,251 INFO - ((User_7710) -> (User_5754)): Obra na PE-015
+2023-04-27 18:10:01,262 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,264 INFO - Tamanho do pacote: 181 bytes
+2023-04-27 18:10:01,264 INFO - Tempo de transmissão: 2588700 nanosegundos
+2023-04-27 18:10:01,264 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,264 INFO - ((User_7710) -> (User_5754)): Acidente Avenida Cruz Cabugá
+2023-04-27 18:10:01,274 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,276 INFO - Tamanho do pacote: 190 bytes
+2023-04-27 18:10:01,277 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,277 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,277 INFO - ((User_7710) -> (User_5754)): Trânsito Intenso na Avenida Boa viagem
+2023-04-27 18:10:01,289 INFO - Tempo tomado para encriptografar: 1024500 nanosegundos 
+2023-04-27 18:10:01,290 INFO - Tamanho do pacote: 199 bytes
+2023-04-27 18:10:01,290 INFO - Tempo de transmissão: 476400 nanosegundos
+2023-04-27 18:10:01,290 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,290 INFO - ((User_7710) -> (User_5754)): Trânsito Intenso na Governador Agamenon Magalhães
+2023-04-27 18:10:01,301 INFO - Tempo tomado para encriptografar: 1013900 nanosegundos 
+2023-04-27 18:10:01,301 INFO - Tamanho do pacote: 174 bytes
+2023-04-27 18:10:01,302 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,304 INFO - Tempo tomado para descriptografar: 1301700 nanosegundos
+2023-04-27 18:10:01,304 INFO - ((User_7710) -> (User_5754)): Acidente Avenida Norte
+2023-04-27 18:10:01,313 INFO - Tempo tomado para encriptografar: 505800 nanosegundos 
+2023-04-27 18:10:01,313 INFO - Tamanho do pacote: 165 bytes
+2023-04-27 18:10:01,316 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,316 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,316 INFO - ((User_3994) -> (User_7710)): Obra na BR-101
+2023-04-27 18:10:01,326 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,329 INFO - Tamanho do pacote: 165 bytes
+2023-04-27 18:10:01,329 INFO - Tempo de transmissão: 2279300 nanosegundos
+2023-04-27 18:10:01,330 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,332 INFO - ((User_3994) -> (User_7710)): Obra na PE-015
+2023-04-27 18:10:01,339 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,340 INFO - Tamanho do pacote: 182 bytes
+2023-04-27 18:10:01,340 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,342 INFO - Tempo tomado para descriptografar: 1816700 nanosegundos
+2023-04-27 18:10:01,342 INFO - ((User_3994) -> (User_7710)): Acidente Avenida Cruz Cabugá
+2023-04-27 18:10:01,351 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,351 INFO - Tamanho do pacote: 191 bytes
+2023-04-27 18:10:01,353 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,353 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,353 INFO - ((User_3994) -> (User_7710)): Trânsito Intenso na Avenida Boa viagem
+2023-04-27 18:10:01,363 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,363 INFO - Tamanho do pacote: 198 bytes
+2023-04-27 18:10:01,366 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,367 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,369 INFO - ((User_3994) -> (User_7710)): Trânsito Intenso na Governador Agamenon Magalhães
+2023-04-27 18:10:01,376 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,378 INFO - Tamanho do pacote: 175 bytes
+2023-04-27 18:10:01,378 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,381 INFO - Tempo tomado para descriptografar: 1511600 nanosegundos
+2023-04-27 18:10:01,381 INFO - ((User_3994) -> (User_7710)): Acidente Avenida Norte
+2023-04-27 18:10:01,389 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,389 INFO - Tamanho do pacote: 166 bytes
+2023-04-27 18:10:01,392 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,394 INFO - Tempo tomado para descriptografar: 2042900 nanosegundos
+2023-04-27 18:10:01,394 INFO - ((User_3994) -> (User_5754)): Obra na BR-101
+2023-04-27 18:10:01,403 INFO - Tempo tomado para encriptografar: 1339100 nanosegundos 
+2023-04-27 18:10:01,405 INFO - Tamanho do pacote: 165 bytes
+2023-04-27 18:10:01,405 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,407 INFO - Tempo tomado para descriptografar: 1794900 nanosegundos
+2023-04-27 18:10:01,407 INFO - ((User_3994) -> (User_5754)): Obra na PE-015
+2023-04-27 18:10:01,415 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,415 INFO - Tamanho do pacote: 182 bytes
+2023-04-27 18:10:01,417 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,418 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,418 INFO - ((User_3994) -> (User_5754)): Acidente Avenida Cruz Cabugá
+2023-04-27 18:10:01,428 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,428 INFO - Tamanho do pacote: 191 bytes
+2023-04-27 18:10:01,431 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,433 INFO - Tempo tomado para descriptografar: 1723200 nanosegundos
+2023-04-27 18:10:01,433 INFO - ((User_3994) -> (User_5754)): Trânsito Intenso na Avenida Boa viagem
+2023-04-27 18:10:01,441 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,443 INFO - Tamanho do pacote: 198 bytes
+2023-04-27 18:10:01,444 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,444 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,447 INFO - ((User_3994) -> (User_5754)): Trânsito Intenso na Governador Agamenon Magalhães
+2023-04-27 18:10:01,455 INFO - Tempo tomado para encriptografar: 1006500 nanosegundos 
+2023-04-27 18:10:01,455 INFO - Tamanho do pacote: 173 bytes
+2023-04-27 18:10:01,457 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,457 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,457 INFO - ((User_3994) -> (User_5754)): Acidente Avenida Norte
+2023-04-27 18:10:01,468 INFO - Tempo tomado para encriptografar: 1025600 nanosegundos 
+2023-04-27 18:10:01,468 INFO - Tamanho do pacote: 166 bytes
+2023-04-27 18:10:01,469 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,469 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,471 INFO - ((User_5754) -> (User_7710)): Obra na BR-101
+2023-04-27 18:10:01,481 INFO - Tempo tomado para encriptografar: 1042000 nanosegundos 
+2023-04-27 18:10:01,481 INFO - Tamanho do pacote: 166 bytes
+2023-04-27 18:10:01,482 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,484 INFO - Tempo tomado para descriptografar: 2027900 nanosegundos
+2023-04-27 18:10:01,484 INFO - ((User_5754) -> (User_7710)): Obra na PE-015
+2023-04-27 18:10:01,493 INFO - Tempo tomado para encriptografar: 506300 nanosegundos 
+2023-04-27 18:10:01,493 INFO - Tamanho do pacote: 182 bytes
+2023-04-27 18:10:01,494 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,494 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,496 INFO - ((User_5754) -> (User_7710)): Acidente Avenida Cruz Cabugá
+2023-04-27 18:10:01,506 INFO - Tempo tomado para encriptografar: 1014900 nanosegundos 
+2023-04-27 18:10:01,506 INFO - Tamanho do pacote: 190 bytes
+2023-04-27 18:10:01,507 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,509 INFO - Tempo tomado para descriptografar: 1662800 nanosegundos
+2023-04-27 18:10:01,509 INFO - ((User_5754) -> (User_7710)): Trânsito Intenso na Avenida Boa viagem
+2023-04-27 18:10:01,517 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,517 INFO - Tamanho do pacote: 197 bytes
+2023-04-27 18:10:01,519 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,519 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,519 INFO - ((User_5754) -> (User_7710)): Trânsito Intenso na Governador Agamenon Magalhães
+2023-04-27 18:10:01,530 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,531 INFO - Tamanho do pacote: 173 bytes
+2023-04-27 18:10:01,532 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,532 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,534 INFO - ((User_5754) -> (User_7710)): Acidente Avenida Norte
+2023-04-27 18:10:01,543 INFO - Tempo tomado para encriptografar: 516800 nanosegundos 
+2023-04-27 18:10:01,545 INFO - Tamanho do pacote: 165 bytes
+2023-04-27 18:10:01,545 INFO - Tempo de transmissão: 1897600 nanosegundos
+2023-04-27 18:10:01,545 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,549 INFO - ((User_5754) -> (User_3994)): Obra na BR-101
+2023-04-27 18:10:01,555 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,555 INFO - Tamanho do pacote: 166 bytes
+2023-04-27 18:10:01,557 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,558 INFO - Tempo tomado para descriptografar: 1072400 nanosegundos
+2023-04-27 18:10:01,558 INFO - ((User_5754) -> (User_3994)): Obra na PE-015
+2023-04-27 18:10:01,568 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,570 INFO - Tamanho do pacote: 182 bytes
+2023-04-27 18:10:01,570 INFO - Tempo de transmissão: 2252600 nanosegundos
+2023-04-27 18:10:01,570 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,570 INFO - ((User_5754) -> (User_3994)): Acidente Avenida Cruz Cabugá
+2023-04-27 18:10:01,580 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,581 INFO - Tamanho do pacote: 189 bytes
+2023-04-27 18:10:01,582 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,582 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,585 INFO - ((User_5754) -> (User_3994)): Trânsito Intenso na Avenida Boa viagem
+2023-04-27 18:10:01,593 INFO - Tempo tomado para encriptografar: 0 nanosegundos 
+2023-04-27 18:10:01,593 INFO - Tamanho do pacote: 197 bytes
+2023-04-27 18:10:01,596 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,599 INFO - Tempo tomado para descriptografar: 511100 nanosegundos
+2023-04-27 18:10:01,599 INFO - ((User_5754) -> (User_3994)): Trânsito Intenso na Governador Agamenon Magalhães
+2023-04-27 18:10:01,607 INFO - Tempo tomado para encriptografar: 1005600 nanosegundos 
+2023-04-27 18:10:01,607 INFO - Tamanho do pacote: 175 bytes
+2023-04-27 18:10:01,609 INFO - Tempo de transmissão: 0 nanosegundos
+2023-04-27 18:10:01,609 INFO - Tempo tomado para descriptografar: 0 nanosegundos
+2023-04-27 18:10:01,611 INFO - ((User_5754) -> (User_3994)): Acidente Avenida Norte
+2023-04-27 18:10:01,649 INFO - Todas mensagens enviadas!
