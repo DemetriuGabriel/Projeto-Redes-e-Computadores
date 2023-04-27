@@ -23,7 +23,7 @@
     Clique no arquivo ‘server.py’
     Abra o terminal na parte superior da tela clicando em Terminal e depois ‘New Terminal'.
     No Terminal, escreva ‘cd Projeto2’ e depois ‘py server.py’ (alguns executa com python ou python3 invés apenas ‘py’).
-    #### obs: dependendo da configuração da sua máquina, clique F5.
+    obs: dependendo da configuração da sua máquina, clique F5.
     Depois disso, o programa irá ficar aguardando a conexão. 
     Abra o seu navegador e na barra de pesquisa digite: http://localhost:8000/.
     
