@@ -14,7 +14,7 @@ def generate_ecc_keys():
     return private_key, public_key
 
 #transform ecc key pairs to format pem in bytes
-def transform_ecc_keys_bytes(private_key: bytes, public_key: bytes):
+def transform_ecc_keys_bytes(private_key, public_key):
     private_key_bytes = private_key.private_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PrivateFormat.PKCS8,
