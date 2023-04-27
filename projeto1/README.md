@@ -11,12 +11,12 @@
 #### 4. Aqui no repositorio, procure a opção destacada “< > code” e depois em “Download ZIP”. Após a conclusão do download, vá no ‘Explorador de arquivos’ da sua máquina e depois na pasta de ‘Downloads’. Logo em seguida, procure o arquivo zip baixado, clique com o botão direito do mouse e clique em ‘Extrair Tudo…’.
 #### 5. Instalar as dependências: Para que o programa funcione corretamente, é preciso instalar as dependências necessárias. Dessa forma, execute os comandos:
 
-pip install socket
-pip install Thread
-pip install logging
-pip install pickle
-pip install cryptography
-pip install pyDes
+      pip install socket
+      pip install Thread
+      pip install logging
+      pip install pickle
+      pip install cryptography
+      pip install pyDes
 
 
       
